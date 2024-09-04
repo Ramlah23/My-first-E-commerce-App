@@ -11,22 +11,19 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
   // Agrega un producto al carrito
-  const addToCart = (product) => {
+  const addToCart = (product, quantity) => {
     setCart((prevCart) => {
-      // Verifica si el producto ya está en el carrito
       const productInCart = prevCart.find((item) => item.id === product.id);
-
-      if (productInCart) {
-        // Actualiza la cantidad si el producto ya está en el carrito
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
-        // Agrega el producto al carrito si no está presente
-        return [...prevCart, { ...product, quantity: 1 }];
-      }
+      const updatedCart = productInCart
+        ? prevCart.map((item) =>
+            item.id === product.id
+              ? { ...item, quantity: item.quantity + quantity }
+              : item
+          )
+        : [...prevCart, { ...product, quantity }];
+      
+      console.log('Cart after addToCart:', updatedCart); // Verificar el carrito
+      return updatedCart;
     });
   };
 
@@ -37,11 +34,15 @@ export const CartProvider = ({ children }) => {
 
   // Modifica la cantidad de un producto en el carrito
   const updateQuantity = (productId, quantity) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === productId ? { ...item, quantity } : item
-      )
-    );
+    if (quantity > 0) {
+      setCart((prevCart) =>
+        prevCart.map((item) =>
+          item.id === productId ? { ...item, quantity } : item
+        )
+      );
+    } else {
+      removeFromCart(productId);
+    }
   };
 
   // Guarda el pedido y limpia el carrito

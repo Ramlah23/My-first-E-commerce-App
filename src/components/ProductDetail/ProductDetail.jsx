@@ -4,11 +4,13 @@ import { useParams } from 'react-router-dom';
 import { db } from '../../services/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { Box, Image, Text, Button, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, VStack, HStack } from '@chakra-ui/react';
+import { useCart } from '../../context/CartContext';  // Importa el contexto del carrito
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();  // Obtén la función addToCart del contexto del carrito
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -16,7 +18,7 @@ const ProductDetail = () => {
         const docRef = doc(db, 'products', productId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          setProduct(docSnap.data());
+          setProduct({ id: productId, ...docSnap.data() });  // Incluye el productId en el producto
         } else {
           console.error('No such document!');
         }
@@ -29,15 +31,17 @@ const ProductDetail = () => {
   }, [productId]);
 
   const handleBuyClick = () => {
-    console.log(`Compra de ${quantity} unidades del producto ${productId}`);
-    // Implementa la lógica para agregar el producto al carrito o realizar la compra
+    if (product) {
+      addToCart(product, quantity);  // Agrega el producto al carrito con la cantidad seleccionada
+      alert(`Agregaste ${quantity} unidades de ${product.name} al carrito`);
+    }
   };
 
   if (!product) return <Text>Loading...</Text>;
 
   return (
     <Box p={5}>
-      <VStack spacing={5} align="start">
+      <VStack spacing={5} align="center">
         <Image 
           src={product.ImageUrl} 
           alt={product.name} 
@@ -62,7 +66,7 @@ const ProductDetail = () => {
             </NumberInputStepper>
           </NumberInput>
           <Button colorScheme="teal" onClick={handleBuyClick}>
-            Buy
+            Comprar
           </Button>
         </HStack>
       </VStack>

@@ -5,7 +5,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Cart from "../pages/Cart";
-import OrderSummary from "../pages/OrderSummary";
+import Order from "../pages/Orders/Orders";
 import Checkout from "../pages/Checkout"
 import PrivateRoute from "../components/Layout/PrivateRoute";
 import Products from "../pages/products/products";
@@ -20,7 +20,7 @@ const AppRoutes = () => {
         <Route path="/register" element={<Register />} />
         {/* Rutas protegidas */}
         <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
-        <Route path="/order-summary" element={<PrivateRoute><OrderSummary /></PrivateRoute>} />
+        <Route path="/order" element={<PrivateRoute><Order /></PrivateRoute>} />
         <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} /> 
         {/* Otras rutas públicas */}
       </Routes>

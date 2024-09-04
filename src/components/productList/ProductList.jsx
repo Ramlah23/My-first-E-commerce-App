@@ -6,7 +6,8 @@ import {
   Box,
   Image,
   Text,
-  VStack,
+  Grid,
+  GridItem,
   Button,
   HStack,
   NumberInput,
@@ -16,10 +17,12 @@ import {
   NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useCart } from "../../context/CartContext";  // Importa el contexto del carrito
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
-  const [quantities, setQuantities] = useState({}); // Para manejar las cantidades seleccionadas
+  const [quantities, setQuantities] = useState({});
+  const { addToCart } = useCart();  // Obtén la función addToCart del contexto del carrito
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -38,7 +41,6 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
-  // Función para manejar el cambio de cantidad
   const handleQuantityChange = (id, value) => {
     setQuantities((prevQuantities) => ({
       ...prevQuantities,
@@ -46,11 +48,10 @@ const ProductList = () => {
     }));
   };
 
-  // Función para manejar el clic en el botón de compra
-  const handleBuyClick = (productId) => {
-    const quantity = quantities[productId] || 1;
-    console.log(`Compra de ${quantity} unidades del producto ${productId}`);
-    // Aquí podrías implementar la lógica para agregar el producto al carrito, por ejemplo
+  const handleBuyClick = (product) => {
+    const quantity = quantities[product.id] || 1;
+    addToCart(product, quantity);  // Agrega el producto al carrito con la cantidad seleccionada
+    alert(`Agregaste ${quantity} unidades de ${product.name} al carrito`);  // Muestra un mensaje de éxito
   };
 
   return (
@@ -58,15 +59,9 @@ const ProductList = () => {
       {products.length === 0 ? (
         <Text>No products available</Text>
       ) : (
-        <VStack spacing={5} align="start">
+        <Grid templateColumns="repeat(4, 1fr)" gap={6}>
           {products.map((product) => (
-            <Box
-              key={product.id}
-              borderWidth={1}
-              borderRadius="md"
-              overflow="hidden"
-              p={4}
-            >
+            <GridItem key={product.id} borderWidth={1} borderRadius="md" p={4}>
               <Link to={`/product/${product.id}`}>
                 <Image
                   src={product.ImageUrl}
@@ -98,14 +93,14 @@ const ProductList = () => {
                 </NumberInput>
                 <Button
                   colorScheme="teal"
-                  onClick={() => handleBuyClick(product.id)}
+                  onClick={() => handleBuyClick(product)}
                 >
-                 Comprar
+                  Comprar
                 </Button>
               </HStack>
-            </Box>
+            </GridItem>
           ))}
-        </VStack>
+        </Grid>
       )}
     </Box>
   );

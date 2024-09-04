@@ -7,6 +7,11 @@ import { MdDelete } from 'react-icons/md';
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, placeOrder } = useCart();
 
+  // Función para calcular el total del carrito
+  const calculateTotal = () => {
+    return cart.reduce((total, item) => total + item.Price * item.quantity, 0).toFixed(2);
+  };
+
   const handleQuantityChange = (id, event) => {
     const newQuantity = parseInt(event.target.value, 10);
     if (newQuantity > 0) {
@@ -46,7 +51,9 @@ const Cart = () => {
             >
               <Box flex="1">
                 <Heading size="md">{item.name}</Heading>
-                <Text>Precio: ${item.price}</Text>
+                <Text>Precio: ${item.Price}</Text>
+             
+                <Text>Total: ${(item.Price * item.quantity).toFixed(2)}</Text>
               </Box>
               <Input
                 type="number"
@@ -63,6 +70,7 @@ const Cart = () => {
               />
             </HStack>
           ))}
+          <Heading size="md" mt={4}>Total: ${calculateTotal()}</Heading>
           <Button 
             colorScheme="teal" 
             onClick={handlePlaceOrder}
