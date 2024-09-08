@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { createContext, useState, useContext } from 'react';
-import { saveOrder } from '../services/api';
+import { saveOrder } from '../services/api'; // Asegúrate de que esta función esté bien implementada
 
 // Crea el contexto
 const CartContext = createContext();
@@ -45,12 +45,18 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  // Calcula el total del carrito
+  const getTotal = () => {
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
+
   // Guarda el pedido y limpia el carrito
   const placeOrder = async () => {
     try {
       const order = {
         items: cart,
-        // Añade otros detalles del pedido aquí
+        totalAmount: getTotal(),
+        // Añade otros detalles del pedido aquí, como nombre del cliente, dirección, etc.
       };
       const orderId = await saveOrder(order);
       console.log('Order saved with ID:', orderId);
@@ -61,10 +67,15 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  // Cancela la compra, limpia el carrito y, opcionalmente, puede realizar otras acciones
+  const cancelOrder = () => {
+    setCart([]);
+  };
+
   // Proporciona el estado y las funciones del carrito
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, updateQuantity, placeOrder }}
+      value={{ cart, addToCart, removeFromCart, updateQuantity, placeOrder, getTotal, cancelOrder }}
     >
       {children}
     </CartContext.Provider>

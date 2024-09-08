@@ -7,16 +7,16 @@ import { Link } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 
 const Register = () => {
-  const { register: registerAuth } = useAuth();
+  const { signup } = useAuth(); // Asegúrate de que estás accediendo a signup
   const { register, handleSubmit, formState: { errors } } = useForm();
   const toast = useToast();
 
   const onSubmit = async (data) => {
     try {
-      await registerAuth(data.email, data.password);
+      await signup(data.email, data.password, data.nombre); // Usa signup para registrar al usuario
       toast({
-        title: "Registration successful.",
-        description: "You have successfully registered.",
+        title: "Registro exitoso.",
+        description: "Te has registrado exitosamente.",
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -24,8 +24,8 @@ const Register = () => {
       // Redirigir al usuario a la página de inicio o login si es necesario
     } catch (error) {
       toast({
-        title: "Registration failed.",
-        description: "Please check your details and try again.",
+        title: "Fallo en el registro.",
+        description: "Por favor, verifica tus datos e intenta de nuevo.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -50,27 +50,29 @@ const Register = () => {
         boxShadow="md"
       >
         <Heading as="h2" size="lg" mb={6} textAlign="center">
-          Register
+          Registro
         </Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl mb={4} isInvalid={!!errors.email}>
-          <FormLabel mb={4} htmlFor="email">Nombre completo</FormLabel>
+          <FormControl mb={4} isInvalid={!!errors.nombre}>
+            <FormLabel mb={4} htmlFor="nombre">Nombre completo</FormLabel>
             <Input
-              id="nombre completo"
-              type="nombre completo"
-              placeholder="Enter your name"
+              id="nombre"
+              type="text"
+              placeholder="Ingresa tu nombre"
               {...register("nombre", { required: "El nombre es obligatorio" })}
             />
-            <FormLabel mt={4} htmlFor="email">Email</FormLabel>
+            {errors.nombre && <Text color="red.500">{errors.nombre.message}</Text>}
+          </FormControl>
+
+          <FormControl mb={4} isInvalid={!!errors.email}>
+            <FormLabel htmlFor="email">Email</FormLabel>
             <Input
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Ingresa tu email"
               {...register("email", { required: "El email es obligatorio" })}
             />
             {errors.email && <Text color="red.500">{errors.email.message}</Text>}
-            
-        
           </FormControl>
 
           <FormControl mb={4} isInvalid={!!errors.password}>
@@ -78,7 +80,7 @@ const Register = () => {
             <Input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Ingresa tu contraseña"
               {...register("password", { required: "La contraseña es obligatoria" })}
             />
             {errors.password && <Text color="red.500">{errors.password.message}</Text>}

@@ -3,10 +3,10 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
-import VisaLogo from "../../assets/imagenesPagos/visaLogo.png";
-import MasterCardLogo from "../../assets/imagenesPagos/masterCard.png";
-import PayPalLogo from "../../assets/imagenesPagos/paypal.png";
-import CuentaDniLogo from "../../assets/imagenesPagos/cuentaDNI.png";
+import VisaLogo from "../../assets/imagenesPagos/logotipo-de-la-visa.webp";
+import MasterCardLogo from "../../assets/imagenesPagos/mastercard.jpg";
+import PayPalLogo from "../../assets/imagenesPagos/paypal.jpg";
+import CuentaDniLogo from "../../assets/imagenesPagos/cuentaDNI.jpg";
 import MercadoPagoLogo from "../../assets/imagenesPagos/mercadoPago.png";
 
 const PaymentMethods = () => {
@@ -46,16 +46,17 @@ const PaymentMethods = () => {
             />
             {methods.map((method, index) => (
               <Box
-                key={index}
-                display={index === currentIndex ? 'block' : 'none'}
-                p={4}
-                textAlign="center"
-              >
-                <Image src={method.logo} alt={method.name} boxSize="80px" mb={2} mx="auto" />
-                <Text fontSize="lg" fontWeight="bold">
-                  {method.name}
-                </Text>
-              </Box>
+              key={index}
+              display={index === currentIndex ? 'block' : 'none'}
+              p={4}
+              textAlign="center"
+              bg="transparent" // Asegúrate de que este es el color que coincide con el fondo de tu página
+            >
+              <Image src={method.logo} alt={method.name} boxSize="80px" mb={2} mx="auto" />
+              <Text fontSize="lg" fontWeight="bold">
+                {method.name}
+              </Text>
+            </Box>
             ))}
             <IconButton
               aria-label="next slide"

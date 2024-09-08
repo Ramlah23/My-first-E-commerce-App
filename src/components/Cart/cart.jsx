@@ -3,9 +3,11 @@ import React from 'react';
 import { useCart } from '../../context/CartContext';
 import { Box, Button, Heading, Text, Input, VStack, HStack, IconButton } from '@chakra-ui/react';
 import { MdDelete } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity, placeOrder } = useCart();
+  const { cart, removeFromCart, updateQuantity, placeOrder, cancelOrder } = useCart();
+  const navigate = useNavigate();
 
   // Función para calcular el total del carrito
   const calculateTotal = () => {
@@ -24,11 +26,16 @@ const Cart = () => {
   const handlePlaceOrder = async () => {
     try {
       await placeOrder(); // Llama a la función placeOrder para realizar el pedido
-      alert('Pedido realizado con éxito');
+      navigate('/'); // Redirige a la página principal o de confirmación
     } catch (error) {
       console.error('Error placing order:', error);
       alert('Hubo un error al realizar el pedido');
     }
+  };
+
+  const handleCancelOrder = () => {
+    cancelOrder();
+    navigate('/'); // Redirige a la página principal o de inicio
   };
 
   return (
@@ -52,7 +59,6 @@ const Cart = () => {
               <Box flex="1">
                 <Heading size="md">{item.name}</Heading>
                 <Text>Precio: ${item.Price}</Text>
-             
                 <Text>Total: ${(item.Price * item.quantity).toFixed(2)}</Text>
               </Box>
               <Input
@@ -77,6 +83,13 @@ const Cart = () => {
             mt={4}
           >
             Realizar Pedido
+          </Button>
+          <Button 
+            colorScheme="red" 
+            onClick={handleCancelOrder}
+            mt={4}
+          >
+            Cancelar Compra
           </Button>
         </VStack>
       )}
