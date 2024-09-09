@@ -10,7 +10,7 @@ export const PaymentProvider = ({ children }) => {
     setPaymentMethod(method);
   };
 
-  const processPayment = async (amount, paymentDetails) => {
+  const processPayment = async () => {
     // Aquí integrarías la lógica para procesar el pago, por ejemplo, con Stripe o PayPal
     // Podrías utilizar APIs de terceros para manejar los pagos
   };

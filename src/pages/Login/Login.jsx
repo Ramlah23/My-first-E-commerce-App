@@ -4,12 +4,14 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
 import { Box, Button, FormControl, FormLabel, Input, Heading, Text, Flex } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { useToast } from "@chakra-ui/react";
 
 const Login = () => {
   const { login } = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const toast = useToast();
+  const navigate = useNavigate();  // Importa useNavigate para redirigir
 
   const onSubmit = async (data) => {
     try {
@@ -21,7 +23,7 @@ const Login = () => {
         duration: 5000,
         isClosable: true,
       });
-      // Redirigir al usuario a la página de inicio o dashboard si es necesario
+      navigate('/');  // Redirige al usuario a la página principal después del login
     } catch (error) {
       toast({
         title: "Login failed.",

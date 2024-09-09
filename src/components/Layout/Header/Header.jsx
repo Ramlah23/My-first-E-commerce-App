@@ -5,10 +5,8 @@ import { Link } from 'react-router-dom';
 import { BsCart } from 'react-icons/bs';
 import { useAuth } from '../../../context/AuthContext'; // Importa el hook useAuth
 
-
-
 const Header = () => {
-  const { user, logout } = useAuth(); // Obtén el usuario y la función de logout del contexto
+  const { currentUser, logout } = useAuth(); // Cambia 'user' por 'currentUser'
 
   const handleLogout = async () => {
     try {
@@ -20,7 +18,6 @@ const Header = () => {
     }
   };
 
-  
   return (
     <Box as="header" bg="teal.500" color="white" p={4} display="flex" alignItems="center" justifyContent="space-between">
       <Heading as="h1" size="lg">Mi primer E-commerce ❤️</Heading>
@@ -36,15 +33,15 @@ const Header = () => {
           aria-label="Cart" 
           ml={4} 
         />
-        {user ? (
+        {currentUser ? ( // Cambia 'user' por 'currentUser'
           <Box display="flex" alignItems="center">
-            <Text mr={4}>{user.displayName || 'Usuario'}</Text>
+            <Text mr={4}>{currentUser.displayName || 'Usuario'}</Text> {/* Muestra el nombre del usuario */}
             <Button onClick={handleLogout} colorScheme="red" ml={4}>Cerrar sesión</Button>
           </Box>
         ) : (
           <>
             <Button as={Link} to="/login" colorScheme="teal" ml={4}>Ingresar / Crear cuenta</Button>
-            <Button as= {Link} to="/orders"colorScheme="teal" ml={4}>Mi orden</Button>
+            <Button as={Link} to="/orders" colorScheme="teal" ml={4}>Mi orden</Button>
           </>
         )}
       </Box>

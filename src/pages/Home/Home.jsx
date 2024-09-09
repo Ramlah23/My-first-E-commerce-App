@@ -1,15 +1,12 @@
-
-import { Button, Box, Heading } from '@chakra-ui/react';
+import { Button, Box, Heading, VStack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import PaymentMethods from '../../components/PaymentMethods/PaymentMethods';
-
 
 const Home = () => {
   const navigate = useNavigate();
 
   // Función para redirigir a la página de productos
   const goToProducts = () => {
-    navigate('/products'); // Cambia '/products' por la ruta que desees para la página de productos
+    navigate('/products');
   };
 
   return (
@@ -19,20 +16,23 @@ const Home = () => {
       alignItems="center"
       justifyContent="center"
       height="100vh"
-      bg="teal.100" // Color de fondo
+      bg="teal.100"
+      p={4} // Padding general
     >
-      <Heading mb={4}>Bienvenido a mi PetShop</Heading>
-      <Button
-        colorScheme="teal"
-        size="lg"
-        onClick={goToProducts}
-      >
-      Los mejores productos para tu mascota.
-      </Button>
-
-      
-      <PaymentMethods />
-      Medios de pago
+      <VStack spacing={4} align="center">
+        <Heading size={{ base: "md", md: "lg", lg: "xl" }} textAlign="center">
+          Bienvenido a mi PetShop
+        </Heading>
+        <Button
+          colorScheme="teal"
+          size={{ base: "md", md: "lg" }}
+          onClick={goToProducts}
+          width={{ base: "90%", sm: "80%", md: "50%" }} // Ajustes de anchura responsiva
+          isTruncated // Trunca el texto si es demasiado largo
+        >
+          Los mejores productos para tu mascota
+        </Button>
+      </VStack>
     </Box>
   );
 };
