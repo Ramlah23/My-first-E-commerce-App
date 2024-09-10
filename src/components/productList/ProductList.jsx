@@ -40,7 +40,7 @@ const ProductList = () => {
   }, []);
 
   const handleBuyClick = (product) => {
-    addToCart(product, 1);
+    addToCart(product, 0);
     navigate(`/product/${product.id}`);
   };
 

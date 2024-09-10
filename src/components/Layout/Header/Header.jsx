@@ -6,7 +6,7 @@ import { BsCart } from 'react-icons/bs';
 import { useAuth } from '../../../context/AuthContext'; // Importa el hook useAuth
 
 const Header = () => {
-  const { currentUser, logout } = useAuth(); // Cambia 'user' por 'currentUser'
+  const { currentUser, logout } = useAuth(); // Usa 'currentUser' del contexto de autenticación
 
   const handleLogout = async () => {
     try {
@@ -33,15 +33,17 @@ const Header = () => {
           aria-label="Cart" 
           ml={4} 
         />
-        {currentUser ? ( // Cambia 'user' por 'currentUser'
+        
+        {/* Mostrar el botón "Mi orden" cuando el usuario esté logueado */}
+        {currentUser ? (
           <Box display="flex" alignItems="center">
             <Text mr={4}>{currentUser.displayName || 'Usuario'}</Text> {/* Muestra el nombre del usuario */}
+            <Button as={Link} to="/orders" colorScheme="teal" ml={4}>Mi orden</Button> {/* Botón "Mi orden" */}
             <Button onClick={handleLogout} colorScheme="red" ml={4}>Cerrar sesión</Button>
           </Box>
         ) : (
           <>
             <Button as={Link} to="/login" colorScheme="teal" ml={4}>Ingresar / Crear cuenta</Button>
-            <Button as={Link} to="/orders" colorScheme="teal" ml={4}>Mi orden</Button>
           </>
         )}
       </Box>

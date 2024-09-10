@@ -12,6 +12,7 @@ import Main from "./components/Layout/Main/Main";
 import Footer from "./components/Layout/footer/Footer";
 import Cart from "./components/Cart/cart";
 import NotFound from "./pages/NotFound/NotFound";
+import OrderSummary from './pages/OrderSummary/OrderSummary';
 
 function App() {
   return (
@@ -25,9 +26,11 @@ function App() {
 
           <Route path="/products" element={<Products />} />
           <Route path="/product/:productId" element={<ProductDetail />} />
+          <Route path="/order-summary/:id" element={<OrderSummary />} />
           
           {/* Ruta para el carrito */}
           <Route path="/cart" element={<Cart />} />
+
 
           {/* Rutas protegidas */}
           <Route element={<PrivateRoute />}>
