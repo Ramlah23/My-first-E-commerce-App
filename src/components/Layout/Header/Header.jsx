@@ -3,7 +3,8 @@ import React from 'react';
 import { Box, Heading, Button, IconButton, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { BsCart } from 'react-icons/bs';
-import { useAuth } from '../../../context/AuthContext'; // Importa el hook useAuth
+import { useAuth } from '../../../context/AuthContext'; 
+import CartIcon from '../../../components/CartIcon/CartIcon';
 
 const Header = () => {
   const { currentUser, logout } = useAuth(); // Usa 'currentUser' del contexto de autenticación
@@ -33,7 +34,7 @@ const Header = () => {
           aria-label="Cart" 
           ml={4} 
         />
-        
+        <CartIcon />
         {/* Mostrar el botón "Mi orden" cuando el usuario esté logueado */}
         {currentUser ? (
           <Box display="flex" alignItems="center">
