@@ -50,6 +50,7 @@ const Header = () => {
         ) : (
           <>
             <Button as={Link} to="/login" colorScheme="teal" ml={4}>Ingresar / Crear cuenta</Button>
+           
           </>
         )}
       </Box>
