@@ -32,6 +32,11 @@ export const CartProvider = ({ children }) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
   };
 
+  const getCartItemCount = () => {
+    // Calcula la cantidad total de ítems en el carrito
+    return cart.reduce((count, item) => count + item.quantity, 0);
+  };
+
   // Modifica la cantidad de un producto en el carrito
   const updateQuantity = (productId, quantity) => {
     if (quantity > 0) {
@@ -75,7 +80,7 @@ export const CartProvider = ({ children }) => {
   // Proporciona el estado y las funciones del carrito
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, updateQuantity, placeOrder, getTotal, cancelOrder }}
+      value={{ cart, addToCart, removeFromCart, updateQuantity, placeOrder, getTotal, cancelOrder,getCartItemCount }}
     >
       {children}
     </CartContext.Provider>
