@@ -13,11 +13,11 @@ const CartIcon = () => {
       <Badge
         colorScheme="red"
         position="absolute"
-        top="-1px"
+        top="-20px"
         right="-1px"
         borderRadius="full"
-        fontSize="0.8em"
-        px="8px"
+        fontSize="0.5em"
+        px="5px"
       >
         {itemCount}
       </Badge>
