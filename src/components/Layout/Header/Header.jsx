@@ -26,6 +26,7 @@ const Header = () => {
       <Box>
         <Button as={Link} to="/" colorScheme="teal" ml={4}>Home</Button>
         <Button as={Link} to="/products" colorScheme="teal" ml={4}>Products</Button>
+        <box>
         <IconButton 
           as={Link} 
           to="/cart" 
@@ -33,8 +34,10 @@ const Header = () => {
           colorScheme="teal" 
           aria-label="Cart" 
           ml={4} 
-        />
-        <CartIcon />
+          />
+          <CartIcon />
+          </box>
+        
         {/* Mostrar el botón "Mi orden" cuando el usuario esté logueado */}
         {currentUser ? (
           <Box display="flex" alignItems="center">
