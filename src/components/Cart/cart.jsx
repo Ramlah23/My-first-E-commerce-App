@@ -1,10 +1,12 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import { useCart } from '../../context/CartContext';
 import { Box, Button, Heading, Text, VStack, HStack, Input, IconButton, useToast } from '@chakra-ui/react';
 import { MdDelete } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext'; // Asegúrate de importar el contexto de autenticación
+import { useAuth } from '../../context/AuthContext';
+import { collection, addDoc } from 'firebase/firestore'; // Importa las funciones de Firestore
+import { db } from '../../services/firebase'; // Importa la configuración de Firebase
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, placeOrder, cancelOrder } = useCart();
@@ -31,10 +33,8 @@ const Cart = () => {
   const handleQuantityBlur = (id, value) => {
     const newQuantity = parseInt(value, 10);
     if (!isNaN(newQuantity) && newQuantity > 0) {
-      // Actualizar la cantidad solo si es válida
       updateQuantity(id, newQuantity);
     } else {
-      // Si el valor es inválido (por ejemplo, si es una cadena vacía o < 1), restablecer a 1
       toast({
         title: "Cantidad inválida",
         description: "La cantidad debe ser un número mayor a 0.",
@@ -50,6 +50,7 @@ const Cart = () => {
     }
   };
 
+  // Nueva función para manejar la realización del pedido
   const handlePlaceOrder = async () => {
     if (!currentUser) {
       toast({
@@ -64,8 +65,16 @@ const Cart = () => {
     }
 
     try {
-      await placeOrder();
-      navigate('/');
+      const orderData = {
+        userId: currentUser.uid,
+        items: cart,
+        total: cart.reduce((total, item) => total + item.Price * item.quantity, 0),
+        date: new Date().toISOString(),
+      };
+
+      const orderDocRef = await addDoc(collection(db, 'orders'), orderData);
+      placeOrder();
+      navigate(`/order-summary/${orderDocRef.id}`);
       toast({
         title: "Pedido realizado",
         description: "Tu pedido ha sido realizado con éxito.",

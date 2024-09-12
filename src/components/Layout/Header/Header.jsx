@@ -37,10 +37,12 @@ const Header = () => {
         {/* Mostrar el botón "Mi orden" cuando el usuario esté logueado */}
         {currentUser ? (
           <Box display="flex" alignItems="center">
-            <Text mr={4}>{currentUser.displayName || 'Usuario'}</Text> {/* Muestra el nombre del usuario */}
-            <Button as={Link} to="/orders" colorScheme="teal" ml={4}>Mi orden</Button> {/* Botón "Mi orden" */}
-            <Button onClick={handleLogout} colorScheme="red" ml={4}>Cerrar sesión</Button>
-          </Box>
+          <Text mr={4}>
+            Hola, {currentUser.displayName ? currentUser.displayName : 'Usuario'}!
+          </Text> {/* Aquí mostramos el nombre o 'Usuario' si no hay displayName */}
+          <Button as={Link} to="/orders" colorScheme="teal" ml={4}>Mi orden</Button>
+          <Button onClick={handleLogout} colorScheme="red" ml={4}>Cerrar sesión</Button>
+        </Box>
         ) : (
           <>
             <Button as={Link} to="/login" colorScheme="teal" ml={4}>Ingresar / Crear cuenta</Button>
