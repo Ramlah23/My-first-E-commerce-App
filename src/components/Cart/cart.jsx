@@ -5,8 +5,8 @@ import { Box, Button, Heading, Text, VStack, HStack, Input, IconButton, useToast
 import { MdDelete } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { collection, addDoc } from 'firebase/firestore'; // Importa las funciones de Firestore
-import { db } from '../../services/firebase'; // Importa la configuración de Firebase
+import { collection, addDoc } from 'firebase/firestore'; 
+import { db } from '../../services/firebase'; 
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, placeOrder, cancelOrder } = useCart();

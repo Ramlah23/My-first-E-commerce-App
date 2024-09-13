@@ -10,8 +10,7 @@ const ProductDetail = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const { addToCart } = useCart();  // Obtén la función addToCart del contexto del carrito
-
+  const { addToCart } = useCart();  
   useEffect(() => {
     const fetchProduct = async () => {
       try {

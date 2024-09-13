@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { createContext, useState, useContext } from 'react';
-import { saveOrder } from '../services/api'; // Asegúrate de que esta función esté bien implementada
+import { saveOrder } from '../services/api'; 
 
 // Crea el contexto
 const CartContext = createContext();

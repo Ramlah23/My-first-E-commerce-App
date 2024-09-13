@@ -59,7 +59,7 @@ const ProductList = () => {
                   <Image
                     src={product.ImageUrl}
                     alt={product.name}
-                    boxSize="300px"  // Asegúrate de que todas las imágenes tengan el mismo tamaño
+                    boxSize="300px"  // imágenes mismo tamaño
                     objectFit="cover"
                   />
                 </Link>

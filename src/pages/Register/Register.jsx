@@ -9,14 +9,14 @@ import { useToast } from "@chakra-ui/react";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { signup } = useAuth(); // Asegúrate de que estás accediendo a signup
+  const { signup } = useAuth(); 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const toast = useToast();
 
   const onSubmit = async (data) => {
     try {
       await signup(data.email, data.password, data.nombre); 
-      // Usa signup para registrar al usuario
+      //  signup para registrar al usuario
       toast({
         title: "Registro exitoso.",
         description: "Te has registrado exitosamente.",
