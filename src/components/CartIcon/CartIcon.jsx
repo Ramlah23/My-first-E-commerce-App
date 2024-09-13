@@ -15,9 +15,10 @@ const CartIcon = () => {
         position="absolute"
         top="-20px"
         right="-1px"
-        borderRadius="full"
+        borderRadius="50%"
         fontSize="0.5em"
         px="5px"
+      
       >
         {itemCount}
       </Badge>

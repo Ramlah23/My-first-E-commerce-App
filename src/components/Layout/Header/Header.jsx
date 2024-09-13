@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Heading, Button, IconButton, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { BsCart } from 'react-icons/bs';
@@ -7,7 +7,11 @@ import { useAuth } from '../../../context/AuthContext';
 import CartIcon from '../../../components/CartIcon/CartIcon';
 
 const Header = () => {
-  const { currentUser, logout } = useAuth(); // Usa 'currentUser' del contexto de autenticación
+  const { currentUser, logout } = useAuth(); 
+  
+  useEffect(() => {
+    console.log('Current User:', currentUser); // Verifica el valor de currentUser
+  }, [currentUser]);
 
   const handleLogout = async () => {
     try {
@@ -41,16 +45,13 @@ const Header = () => {
         {/* Mostrar el botón "Mi orden" cuando el usuario esté logueado */}
         {currentUser ? (
           <Box display="flex" alignItems="center">
-          <Text mr={4}>
-            Hola, {currentUser.displayName ? currentUser.displayName : 'Usuario'}!
-          </Text> {/* Aquí mostramos el nombre o 'Usuario' si no hay displayName */}
-          <Button as={Link} to="/orders" colorScheme="teal" ml={4}>Mi orden</Button>
-          <Button onClick={handleLogout} colorScheme="red" ml={4}>Cerrar sesión</Button>
-        </Box>
+            <Text mr={4}>Hola, {currentUser.displayName || currentUser.email}</Text> {/* Muestra el nombre del usuario */}
+            <Button onClick={handleLogout} colorScheme="red" ml={4}>Cerrar sesión</Button>
+            <Button as={Link} to="/orders" colorScheme="teal" ml={4}>Mi orden</Button> {/* Botón "Mi orden" */}
+          </Box>
         ) : (
           <>
             <Button as={Link} to="/login" colorScheme="teal" ml={4}>Ingresar / Crear cuenta</Button>
-           
           </>
         )}
       </Box>
