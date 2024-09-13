@@ -2,11 +2,15 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { auth } from '../services/firebase';
 import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
+import { sendPasswordResetEmail } from 'firebase/auth';
 
 const AuthContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
+  const resetPassword = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   console.log(currentUser);
@@ -56,7 +60,10 @@ export const AuthProvider = ({ children }) => {
     login,
     signup,
     logout,
+    resetPassword,
   };
+
+ 
 
   return (
     <AuthContext.Provider value={value}>
