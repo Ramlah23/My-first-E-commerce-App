@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
 import { Box, Button, FormControl, FormLabel, Input, Heading, Text, Flex } from "@chakra-ui/react";
@@ -7,13 +8,15 @@ import { Link } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 
 const Register = () => {
+  const navigate = useNavigate();
   const { signup } = useAuth(); // Asegúrate de que estás accediendo a signup
   const { register, handleSubmit, formState: { errors } } = useForm();
   const toast = useToast();
 
   const onSubmit = async (data) => {
     try {
-      await signup(data.email, data.password, data.nombre); // Usa signup para registrar al usuario
+      await signup(data.email, data.password, data.nombre); 
+      // Usa signup para registrar al usuario
       toast({
         title: "Registro exitoso.",
         description: "Te has registrado exitosamente.",
@@ -21,7 +24,7 @@ const Register = () => {
         duration: 5000,
         isClosable: true,
       });
-      // Redirigir al usuario a la página de inicio o login si es necesario
+      navigate('/');// Redirigir al usuario a la página de inicio o login si es necesario
     } catch (error) {
       toast({
         title: "Fallo en el registro.",

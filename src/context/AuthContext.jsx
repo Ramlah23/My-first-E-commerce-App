@@ -19,15 +19,21 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+  const login = async (email, password) => {
+    try {
+      return await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      throw error;
+    }
   };
 
-  const signup = async (email, password, displayName) => {
+  const signup = async (email, password, name) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      await updateProfile(user, { displayName }); // Establece el nombre de usuario
+      await updateProfile(user, { displayName: name }); // Establece el nombre de usuario
+      setCurrentUser({ ...user, displayName: name });
       return user;
     } catch (error) {
       console.error('Error al registrar:', error);
@@ -35,8 +41,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    return signOut(auth);
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      setCurrentUser(null); // Actualiza el estado después de cerrar sesión
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+      throw error;
+    }
   };
 
   const value = {
