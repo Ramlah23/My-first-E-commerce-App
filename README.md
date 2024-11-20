@@ -5,7 +5,7 @@
 
 ## Despliegue en Vivo
 
-Puedes ver la aplicación en funcionamiento aquí: [Todo Listo en Firebase](https://mi-primer-e-commerce-c1704.web.app/)
+Puedes ver la aplicación en funcionamiento aquí: [My-first-E-commerce-App en Firebase](https://mi-primer-e-commerce-c1704.web.app/)
 
 ## Características
 
