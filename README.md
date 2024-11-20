@@ -57,15 +57,11 @@ src/
 
 
 ## Tecnologías Utilizadas
-# Frontend: 
 
 -**Vite:** Para un entorno de desarrollo rápido.
 -**React:** Biblioteca para construir interfaces de usuario.
 -**Chakra UI:** Biblioteca de componentes para diseño y estilo.
 -**JavaScript (ES6+):** Lenguaje principal para la lógica de la aplicación.
-
-# Backend:
-
 -**Firebase:** (Authentication, Firestore, Firebase Storage)
 
 ---
