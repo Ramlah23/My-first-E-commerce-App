@@ -9,12 +9,13 @@ Puedes ver la aplicación en funcionamiento aquí: [My-first-E-commerce-App en F
 
 ## Características
 
-- **Autenticación: Implementada usando Firebase Authentication (registro, inicio de sesión y recuperación de contraseña).
-- **Productos: Los productos son alimentos para perros y gatos, almacenados en Firebase y se muestran en la página principal.
-- **Carrito de compras: Los datos del carrito de compras se guardan y despliegan desde Firebase. Los usuarios pueden agregar productos al carrito y ver su contenido.
-- **Órdenes: Los usuarios pueden ver el historial de sus órdenes desde la página Orders.
-- **Rutas protegidas: Las páginas de Orders y Checkout solo están accesibles para usuarios autenticados.
-- **Responsive: La interfaz es completamente adaptativa para móviles, tabletas y escritorios.
+- **Autenticación:** Implementada usando Firebase Authentication (registro, inicio de sesión y recuperación de contraseña).
+- **Productos:** Los productos son alimentos para perros y gatos, almacenados en Firebase y se muestran en la página principal.
+- **Carrito de compras:** Los datos del carrito de compras se guardan y despliegan desde Firebase. Los usuarios pueden agregar productos al carrito y ver su contenido.
+- **Órdenes:** Los usuarios pueden ver el historial de sus órdenes desde la página Orders.
+- **Rutas protegidas:** Las páginas de Orders y Checkout solo están accesibles para usuarios autenticados.
+- **Responsive:** La interfaz es completamente adaptativa para móviles, tabletas y escritorios.
+
 ## Estructura del Proyecto
 
 src/
@@ -55,13 +56,14 @@ src/
 ![Filtros](src/assets/Login-registrado-o-nuevo-usuario.png)
 
 
-Tecnologías Utilizadas
+## Tecnologías Utilizadas
 Frontend: 
-Vite: Para un entorno de desarrollo rápido.
-React: Biblioteca para construir interfaces de usuario.
-Chakra UI: Biblioteca de componentes para diseño y estilo.
-JavaScript (ES6+): Lenguaje principal para la lógica de la aplicación.
-Backend: Firebase (Authentication, Firestore, Firebase Storage)
+-**Vite:** Para un entorno de desarrollo rápido.
+-**React:** Biblioteca para construir interfaces de usuario.
+-**Chakra UI:** Biblioteca de componentes para diseño y estilo.
+-**JavaScript (ES6+):** Lenguaje principal para la lógica de la aplicación.
+Backend:
+-**Firebase:** (Authentication, Firestore, Firebase Storage)
 
 ---
 
