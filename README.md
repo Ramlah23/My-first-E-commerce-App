@@ -1,7 +1,7 @@
 
 # Bienvenidos a My-first-E-commerce-App 📝✨
 
-**My-first-E-commerce-App** es un e-commerce desarrollado con React, Vite, Chakra UI y Firebase, que ofrece productos alimenticios para perros y gatos. La app permite a los usuarios navegar por productos, registrarse, iniciar sesión, agregar productos al carrito y realizar compras. Los usuarios pueden ver sus órdenes y realizar pagos, con las rutas protegidas para garantizar que solo los usuarios autenticados puedan acceder a ciertas secciones.
+**My-first-E-commerce-App** es una app desarrollado con React, Vite, Chakra UI y Firebase, que ofrece productos alimenticios para perros y gatos. La app permite a los usuarios navegar por productos, registrarse, iniciar sesión, agregar productos al carrito y realizar compras. Los usuarios pueden ver sus órdenes y realizar pagos, con las rutas protegidas para garantizar que solo los usuarios autenticados puedan acceder a ciertas secciones.
 
 ## Despliegue en Vivo
 
