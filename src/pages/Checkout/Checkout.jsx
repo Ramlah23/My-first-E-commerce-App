@@ -1,34 +1,74 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
-import { Box, Button, Radio, RadioGroup, Stack } from '@chakra-ui/react';
-import { usePayment } from '../../context/PaymentContext';
+import React from 'react';
+import { useCart } from '../../context/CartContext';
+import { Box, VStack, Text, Heading, Button, useToast,HStack } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
-  const { selectPaymentMethod, processPayment } = usePayment();
-  const [selectedMethod, setSelectedMethod] = useState('creditCard');
+  const { cart, placeOrder } = useCart();
+  const toast = useToast();
+  const navigate = useNavigate();
 
-  const handlePayment = () => {
-    // Llamar a la función para procesar el pago
-    processPayment(100, { method: selectedMethod }); // Ejemplo: Monto de $100
+  if (cart.length === 0) {
+    return <Text>Tu carrito está vacío.</Text>;
+  }
+
+  const total = cart.reduce((sum, item) => sum + item.Price * item.quantity, 0);
+
+  const handlePlaceOrder = async () => {
+    try {
+      await placeOrder();
+      toast({
+        title: 'Pedido realizado',
+        description: 'Tu pedido se ha realizado con éxito.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+      navigate('/');
+    } catch (error) {
+      console.error('Error al realizar el pedido:', error);
+      toast({
+        title: 'Error al realizar el pedido',
+        description: 'Hubo un problema al procesar tu pedido. Intenta nuevamente.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const handleGoBack = () => {
+    navigate('/cart');
   };
 
   return (
-    <Box>
-      <h2>Selecciona tu método de pago</h2>
-      <RadioGroup onChange={setSelectedMethod} value={selectedMethod}>
-        <Stack direction="column">
-          <Radio value="creditCard">Tarjeta de Crédito</Radio>
-          <Radio value="paypal">PayPal</Radio>
-          <Radio value="crypto">Criptomonedas</Radio>
-        </Stack>
-      </RadioGroup>
-      <Button mt={4} onClick={() => selectPaymentMethod(selectedMethod)}>
-        Confirmar Método de Pago
+    <Box p={5}>
+    <Heading mb={4}>Confirmar Pedido</Heading>
+    <VStack spacing={4} align="start">
+      {/* Lista de productos */}
+      {cart.map((item) => (
+        <Box key={item.id} borderWidth="1px" borderRadius="md" p={4}>
+          <Text fontWeight="bold">{item.name}</Text>
+          <Text>Cantidad: {item.quantity}</Text>
+          <Text>Precio Total: ${(item.Price * item.quantity).toFixed(2)}</Text>
+        </Box>
+      ))}
+    </VStack>
+    <Text mt={4} fontWeight="bold">
+      Total: ${total.toFixed(2)}
+    </Text>
+  
+    {/* Ajuste de botones en HStack para alinearlos horizontalmente */}
+    <HStack mt={6} spacing={4}>
+      <Button colorScheme="teal" onClick={handlePlaceOrder}>
+        Realizar Pedido
       </Button>
-      <Button mt={4} onClick={handlePayment}>
-        Pagar
+      <Button colorScheme="gray" onClick={handleGoBack}>
+        Volver Atrás
       </Button>
-    </Box>
+    </HStack>
+  </Box>
   );
 };
 

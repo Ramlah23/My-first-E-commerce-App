@@ -5,12 +5,14 @@ import { db } from '../../services/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { Box, Image, Text, Button, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, VStack, HStack } from '@chakra-ui/react';
 import { useCart } from '../../context/CartContext';  // Importa el contexto del carrito
+import { useNavigate } from 'react-router-dom';
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();  // Obtén la función addToCart del contexto del carrito
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -34,6 +36,7 @@ const ProductDetail = () => {
     if (product) {
       addToCart(product, quantity);  // Agrega el producto al carrito con la cantidad seleccionada
       alert(`Agregaste ${quantity} unidades de ${product.name} al carrito`);
+      navigate('/products'); 
     }
   };
 

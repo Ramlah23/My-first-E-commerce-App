@@ -67,7 +67,7 @@ const Login = () => {
             <Input
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Ingresa tu correo"
               {...register("email", { required: "El email es obligatorio" })}
             />
             {errors.email && (
@@ -80,7 +80,7 @@ const Login = () => {
             <Input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Ingrese su contraseña"
               {...register("password", {
                 required: "La contraseña es obligatoria",
               })}
