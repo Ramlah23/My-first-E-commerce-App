@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
@@ -16,23 +17,34 @@ import NotFound from "./pages/NotFound/NotFound";
 import OrderSummary from './pages/OrderSummary/OrderSummary';
 
 function App() {
+  const { currentUser } = useAuth();
+
   return (
     <>
       <Header />
       <Main>
         <Routes>
+          {/* Página principal */}
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+
+          {/* Rutas protegidas: Si el usuario está logueado, redirige a /products */}
+          <Route
+            path="/login"
+            element={currentUser ? <Navigate to="/products" /> : <Login />}
+          />
+          <Route
+            path="/register"
+            element={currentUser ? <Navigate to="/products" /> : <Register />}
+          />
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
+          {/* Rutas para productos */}
           <Route path="/products" element={<Products />} />
           <Route path="/product/:productId" element={<ProductDetail />} />
           <Route path="/order-summary/:id" element={<OrderSummary />} />
-          
+
           {/* Ruta para el carrito */}
           <Route path="/cart" element={<Cart />} />
-
 
           {/* Rutas protegidas */}
           <Route element={<PrivateRoute />}>
@@ -40,12 +52,11 @@ function App() {
             <Route path="/orders" element={<Orders />} />
           </Route>
 
-          {/* Rutas adicionales */}
+          {/* Ruta para manejar páginas no encontradas */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Main>
       <Footer />
-      
     </>
   );
 }

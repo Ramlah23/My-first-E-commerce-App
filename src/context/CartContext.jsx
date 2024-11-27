@@ -1,14 +1,24 @@
-// eslint-disable-next-line no-unused-vars
-import React, { createContext, useState, useContext } from 'react';
+// eslint-disable-next-line no-unused-vars 
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { saveOrder } from '../services/api'; 
-
 // Crea el contexto
 const CartContext = createContext();
 
 // Proveedor del contexto
 // eslint-disable-next-line react/prop-types
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  // Recuperamos el carrito del localStorage al inicio
+  const getSavedCart = () => {
+    const savedCart = localStorage.getItem('cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  };
+
+  const [cart, setCart] = useState(getSavedCart); // Inicializamos el estado con el carrito del localStorage
+
+  // Guardar el carrito en el localStorage cada vez que cambie
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   // Agrega un producto al carrito
   const addToCart = (product, quantity) => {
@@ -72,7 +82,7 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Cancela la compra, limpia el carrito y, opcionalmente, puede realizar otras acciones
+  // Cancela la compra, limpia el carrito
   const cancelOrder = () => {
     setCart([]);
   };
@@ -80,7 +90,7 @@ export const CartProvider = ({ children }) => {
   // Proporciona el estado y las funciones del carrito
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, updateQuantity, placeOrder, getTotal, cancelOrder,getCartItemCount }}
+      value={{ cart, addToCart, removeFromCart, updateQuantity, placeOrder, getTotal, cancelOrder, getCartItemCount }}
     >
       {children}
     </CartContext.Provider>
