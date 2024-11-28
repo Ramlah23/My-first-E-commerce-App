@@ -49,14 +49,16 @@ export const CartProvider = ({ children }) => {
 
   // Modifica la cantidad de un producto en el carrito
   const updateQuantity = (productId, quantity) => {
-    if (quantity > 0) {
+    if (quantity >= 1) {
       setCart((prevCart) =>
         prevCart.map((item) =>
-          item.id === productId ? { ...item, quantity } : item
+          item.id === productId
+            ? { ...item, quantity: Math.min(quantity, item.stock) }
+            : item
         )
       );
     } else {
-      removeFromCart(productId);
+      removeFromCart(productId); // Si es menor que 1, elimina el producto
     }
   };
 
