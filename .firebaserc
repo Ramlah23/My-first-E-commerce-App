@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "empirical-realm-430119-p1"
-  }
+    "default": "mi-primer-e-commerce-c1704"
+  },
+  "targets": {},
+  "etags": {}
 }
